@@ -39,11 +39,9 @@ const SavedProfilesPage = () => {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <div className="flex flex-col space-y-2 max-w-5xl mx-auto">
               {savedProfiles.map((user) => (
-                <div key={user.login} className="w-full">
-                  <UserProfileCard user={user} />
-                </div>
+                <UserProfileCard key={user.login} user={user} />
               ))}
             </div>
           )}
