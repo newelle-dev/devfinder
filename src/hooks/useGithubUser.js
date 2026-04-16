@@ -8,11 +8,13 @@ export function useGithubUser() {
   const [error, setError] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
   
-  const searchUser = async (e) => {
-    if (e) e.preventDefault();
+  const searchUser = async (e, forcedUsername = null) => {
+    if (e && e.preventDefault) e.preventDefault();
     
     setError("");
-    const trimmed = username.trim();
+    const targetUsername = forcedUsername || username;
+    const trimmed = targetUsername ? targetUsername.trim() : "";
+    
     if (!trimmed) {
       setError("Please enter a GitHub username");
       return;

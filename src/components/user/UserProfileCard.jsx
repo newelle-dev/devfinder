@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Bookmark, CopyIcon, Github, Mail, MapPin, Search } from 'lucide-react';
+import { Bookmark, Copy, Github, Mail, MapPin, Search, UserPlus } from 'lucide-react';
 import UserStats from './UserStats';
 import UserSocialLinks from './UserSocialLinks';
 import Button from '../ui/Button';
@@ -17,12 +17,17 @@ const UserProfileCard = ({ user }) => {
       <Card className="glass-card hover:-translate-y-1 hover:shadow-xl transition-all duration-300 w-full overflow-hidden relative">
         <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-primary/10 via-accent/5 to-transparent"></div>
         <div className="relative m-6 mt-8">
-          <div className='absolute -top-4 right-0 flex items-center gap-2'>
+          <div className='absolute -top-4 right-0 flex items-center gap-2 z-20'>
             <Button 
               variant="secondary" 
               size="icon" 
-              onClick={() => toggleProfile(user)}
-              className="rounded-full shadow-sm hover:bg-primary/20 hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleProfile(user);
+              }}
+              className="rounded-full shadow-lg border-2 border-background bg-card hover:bg-primary/10 hover:text-primary transition-all duration-300"
+              title={isSaved ? "Remove from saved" : "Save profile"}
             >
               <Bookmark className={`h-4 w-4 ${isSaved ? 'fill-primary text-primary' : ''}`} />
             </Button>
@@ -69,7 +74,7 @@ const UserProfileCard = ({ user }) => {
                           navigator.clipboard.writeText(user.login);
                         }}
                         aria-label="Copy username">
-                    <CopyIcon className='w-4 h-4'/> 
+                    <Copy className='w-4 h-4'/> 
                   </button>
                 </div>
                 <p className='text-sm sm:text-base text-muted-foreground/90 leading-relaxed max-w-2xl'>
@@ -79,7 +84,13 @@ const UserProfileCard = ({ user }) => {
                 <UserStats user={user} />
                 
                 <div className='flex flex-wrap gap-2 sm:gap-3 pt-2'>
-                  <Button variant="outline" size="sm" className="rounded-full border-border/60 hover:bg-primary/5 hover:border-primary/30" icon={<Search className='w-3 h-3 sm:w-4 sm:h-4' />}>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="rounded-full border-border/60 hover:bg-primary/5 hover:border-primary/30" 
+                    icon={<Search className='w-3 h-3 sm:w-4 sm:h-4' />} 
+                    onClick={() => window.open(`https://www.google.com/search?q=${user.name || user.login}+developer`, '_blank')}
+                  >
                     Find Social Profiles
                   </Button>
                 </div>
@@ -101,7 +112,7 @@ const UserProfileCard = ({ user }) => {
                         }}
                         aria-label="Copy email address"
                       >
-                        <CopyIcon className='w-4 h-4'/>
+                        <Copy className='w-4 h-4'/>
                       </button>
                     </div>
                   </div>

@@ -3,11 +3,22 @@ import UserProfileCard from '../components/user/UserProfileCard';
 import UserSkeletonCard from '../components/user/UserSkeletonCard';
 import { useGithubUser } from '../hooks/useGithubUser';
 import { Search } from 'lucide-react';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const QA_SEARCHES = ['torvalds', 'gaearon', 'yyx990803', 'rich-harris'];
 
 const SearchPage = () => {
   const { username, setUsername, user, isLoading, error, hasSearched, searchUser } = useGithubUser();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const query = searchParams.get('q');
+    if (query) {
+      setUsername(query);
+      searchUser(null, query);
+    }
+  }, [searchParams, setUsername, searchUser]);
 
   const handleQuickSearch = (name) => {
     setUsername(name);

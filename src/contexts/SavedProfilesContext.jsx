@@ -6,7 +6,9 @@ export const SavedProfilesProvider = ({ children }) => {
   const [savedProfiles, setSavedProfiles] = useState(() => {
     try {
       const stored = localStorage.getItem('savedProfiles');
-      return stored ? JSON.parse(stored) : [];
+      if (!stored) return [];
+      const parsed = JSON.parse(stored);
+      return Array.isArray(parsed) ? parsed : [];
     } catch (error) {
       console.error('Failed to parse saved profiles from localStorage', error);
       return [];
@@ -19,11 +21,18 @@ export const SavedProfilesProvider = ({ children }) => {
   }, [savedProfiles]);
 
   const toggleProfile = (user) => {
+    if (!user || !user.login) {
+      console.warn('Attempted to toggle an invalid user profile', user);
+      return;
+    }
+    
     setSavedProfiles((prev) => {
       const exists = prev.some((p) => p.login === user.login);
       if (exists) {
+        console.log(`Removing profile: ${user.login}`);
         return prev.filter((p) => p.login !== user.login);
       }
+      console.log(`Adding profile: ${user.login}`);
       return [user, ...prev];
     });
   };
