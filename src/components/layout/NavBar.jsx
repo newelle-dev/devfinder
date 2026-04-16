@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-// 
 import { Bookmark, Search, SearchCode, Settings, UserPlus } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import ThemeToggle from './../common/ThemeToggle';

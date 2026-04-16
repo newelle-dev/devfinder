@@ -6,11 +6,13 @@ export const GithubService = {
   getUser: async (username) => {
     if (!username) throw new Error("Username required");
     try {
-      const response = await axios.get(`${BASE_URL}${username}`, {
-        headers: {
-          Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN || ""}`,
-        },
-      });
+      const headers = {};
+      const token = import.meta.env.VITE_GITHUB_TOKEN;
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+      
+      const response = await axios.get(`${BASE_URL}${username}`, { headers });
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) return null;

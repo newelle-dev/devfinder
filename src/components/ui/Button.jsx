@@ -15,6 +15,7 @@ const Button = ({
   const variants = {
     primary: 'bg-primary text-primary-foreground hover:bg-primary/90 hover:translate-y-[-1px]',
     secondary: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground hover:border-accent',
+    vibrant: 'bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] animate-[gradient-shift_4s_ease_infinite] text-primary-foreground hover:shadow-lg hover:shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300',
     ghost: 'hover:bg-muted/60 text-muted-foreground hover:text-foreground',
     link: 'text-primary underline-offset-4 hover:underline',
   };
@@ -25,7 +26,7 @@ const Button = ({
     icon: 'h-8 w-8',
   };
 
-  const baseStyles = 'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
+  const baseStyles = 'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
   
   return (
    <button 

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { fetchGitHubUser } from '../utils/api';
+import { GithubService } from '../services/github';
 
 export function useGithubUser() {
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
   
   const searchUser = async (e) => {
     if (e) e.preventDefault();
@@ -17,9 +18,10 @@ export function useGithubUser() {
       return;
     }
 
+    setHasSearched(true);
     setIsLoading(true);
     try {
-      const data = await fetchGitHubUser(trimmed);
+      const data = await GithubService.getUser(trimmed);
       if (!data) {
         setError("User not found");
         setUser(null);
@@ -41,6 +43,7 @@ export function useGithubUser() {
     setUser,
     isLoading, 
     error, 
+    hasSearched,
     searchUser 
   };
 }
