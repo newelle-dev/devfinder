@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Bookmark, Copy, Github, Mail, MapPin, Search, UserPlus } from 'lucide-react';
+import { Bookmark, Copy, Github, Mail, MapPin, Search } from 'lucide-react';
 import UserStats from './UserStats';
 import UserSocialLinks from './UserSocialLinks';
 import Button from '../ui/Button';
@@ -41,12 +40,14 @@ const UserProfileCard = ({ user }) => {
                   alt="User Avatar" 
                   className='relative w-24 h-24 sm:w-36 sm:h-36 rounded-full border-4 border-background/80 object-cover'
                 />
-                <Link 
-                  to={`${BASE_URL}${user.login}`} 
+                <a 
+                  href={`${BASE_URL}${user.login}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
                   className='absolute inset-0 flex items-center justify-center bg-black/60 text-white opacity-0 group-hover:opacity-100 rounded-full transition-opacity backdrop-blur-sm'
                 >
                   <Github className='w-8 h-8 sm:w-10 sm:h-10' />
-                </Link>
+                </a>
                 <div className='inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-primary/80 absolute -top-1 -right-1 sm:top-2 sm:-right-2 transform text-[10px] sm:text-xs bg-green-500 text-white shadow-md'>
                   {!user.hirable ? 'Open to Work' : 'Not Available'}
                 </div>
@@ -102,9 +103,9 @@ const UserProfileCard = ({ user }) => {
                       <div className='w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary'>
                         <Mail className='w-4 h-4'/>
                       </div>
-                      <Link to={`mailto:${user.email}`} className='text-sm sm:text-base font-medium text-foreground hover:text-primary transition-colors'>
+                      <a href={`mailto:${user.email}`} className='text-sm sm:text-base font-medium text-foreground hover:text-primary transition-colors'>
                         {user.email}
-                      </Link>
+                      </a>
                       <button 
                         className='p-1.5 rounded-md hover:bg-primary/15 transition-colors group text-muted-foreground hover:text-foreground'
                         onClick={() => {

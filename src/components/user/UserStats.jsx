@@ -1,12 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Users, WarehouseIcon } from 'lucide-react';
 
 const UserStats = ({ user }) => {
   const BASE_URL = "https://github.com/";
   
   const StatBlock = ({ icon: Icon, value, label, to }) => (
-    <Link to={to} className="flex-1 min-w-[30%]">
+    <a 
+      href={to} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="flex-1 min-w-[30%]"
+    >
       <div className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl bg-card border border-border/40 hover:bg-primary/5 hover:border-primary/30 transition-all duration-300 group shadow-sm hover:shadow-md">
         <Icon className='h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground mb-2 group-hover:text-primary transition-colors duration-300' />
         <div className='text-lg sm:text-xl font-bold text-foreground group-hover:text-primary transition-colors'>
@@ -16,7 +20,7 @@ const UserStats = ({ user }) => {
           {label}
         </div>
       </div>
-    </Link>
+    </a>
   );
 
   return (
